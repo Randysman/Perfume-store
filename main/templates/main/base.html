@@ -4,9 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
 </head>
 <body>
+    <header>
+        <div class="container nav">
+
+        </div>
+    </header>
+
     {% block content %}{% endblock content %}
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <p>Магазин изысканных ароматов для тех, кто чувствует стиль.</p>
+            </div>
+            <div class="footer-social">
+                <p>Мы в соцсетях:</p>
+                <a href="#">Instagram</a>
+                <a href="#">Telegram</a>
+                <a href="#">Tik-Tok</a>
+            </div>
+            <div class="footer-subscribe">
+                <p>Подпишитесь на эксклюзивные предложения</p>
+                <form>
+                    <input type="email" placeholder="Ваш e-mail">
+                    <button type="submit">Подписаться</button>
+                </form>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

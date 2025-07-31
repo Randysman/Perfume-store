@@ -1,7 +1,26 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
-{% block title %}
-{% endblock title %}
+{% block title %}Главная страница{% endblock title %}
 
 {% block content %}
+<section class="hero">
+    <div class="hero-content container">
+      <h1>Ароматы, которые говорят за вас</h1>
+      <p>Откройте мир изысканных парфюмов</p>
+      <a href="#" class="btn">В каталог</a>
+    </div>
+  </section>
+
+  <section class="bestsellers container">
+    <h2>Хиты продаж</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="perfume1.png" alt="Парфюм A" />
+        <h3>Парфюм A</h3>
+        <p>7 900 ₽</p>
+      </div>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
