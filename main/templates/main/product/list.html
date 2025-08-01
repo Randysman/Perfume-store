@@ -4,23 +4,33 @@
 {% block title %}Главная страница{% endblock title %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-content container">
-      <h1>Ароматы, которые говорят за вас</h1>
-      <p>Откройте мир изысканных парфюмов</p>
-      <a href="#" class="btn">В каталог</a>
+    <div class="container">
+        <h2>Хиты продаж</h2>
+            <div class="items">
+                {% for product in product_list %}
+                    <div class="">
+                        <a href="#" class="list-card d-flex flex-column align-items-center text-center">
+                            <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
+                            <h5 class="title-card">{{ product.name }}</h5>
+                                    <p class="line"> {{ product.price }} р.</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
     </div>
-  </section>
 
-  <section class="bestsellers container">
-    <h2>Хиты продаж</h2>
-    <div class="products">
-      <div class="product-card">
-        <img src="perfume1.png" alt="Парфюм A" />
-        <h3>Парфюм A</h3>
-        <p>7 900 ₽</p>
-      </div>
-      </div>
+    <div class="container">
+        <h2>Новые товары</h2>
+            <div class="items">
+                {% for product in product_list %}
+                    <div class="">
+                        <a href="#" class="list-card d-flex flex-column align-items-center text-center">
+                            <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
+                            <h5 class="title-card">{{ product.name }}</h5>
+                                    <p class="line"> {{ product.price }} р.</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
     </div>
-  </section>
 {% endblock content %}

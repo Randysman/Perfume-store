@@ -9,3 +9,4 @@ class Product(ListView):
     model = Product
     queryset = Product.objects.all()
     template_name = "main/product/list.html"
+    context_object_name = "product_list"
