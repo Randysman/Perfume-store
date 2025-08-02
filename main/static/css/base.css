@@ -3,8 +3,9 @@ footer {
     background-color: #f9f4ec;
     color: #ccc;
     padding: 40px 0;
-    border-top: 1px solid #222;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer-content {
@@ -117,6 +118,23 @@ footer {
     margin-bottom: 5px;
 }
 
+.list-card .brand {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.list-card .price {
+    font-size: 16px;
+    color: #d8b98a;
+    font-weight: 600;
+}
+
+
+.link {
+    text-decoration: none;
+}
+
 .list-grid {
     display: grid;
     gap: 30px;
@@ -132,7 +150,16 @@ footer {
 .header {
     height: 80px;
     box-shadow: var(--box-shadow);
-    border: 1px solid #000;
+}
+
+.header-right {
+    width: 230px;
+    height: 80px;
+    margin-top: 8px;
+}
+
+.header-right ul {
+    list-style-type: none;
 }
 
 .header-list {
@@ -164,4 +191,58 @@ container-cat {
     gap: 15px;
     margin-bottom: 40px;
     flex-wrap: wrap;
+}
+
+.link-color {
+    color: #000;
+}
+
+.header-color {
+    color: #000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cat {
+    list-style-type: none;
+}
+
+.catalog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #3b3b3b;
+    margin: 30px 30px 20px;
+    text-align: left;
+}
+
+.pol {
+    font-family: 'Playfair Display', serif;
+    margin-top: 14px;
+}
+
+.container-cat {
+    height: 50px;
+    display: flex;
+    margin: 0 50px 0;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #5c5c5c;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #b98e5a;
 }

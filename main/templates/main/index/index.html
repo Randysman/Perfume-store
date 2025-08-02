@@ -18,10 +18,13 @@
             <div class="items">
                 {% for product in products %}
                     <div class="">
-                        <a href="#" class="list-card d-flex flex-column align-items-center text-center">
+                        <a href="#" class="list-card d-flex flex-column align-items-center text-center link">
                             <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
-                            <h5 class="title-card">{{ product.name }}</h5>
-                                    <p class="line"> {{ product.price }} р.</p>
+                            <h2>{{ product.name }}</h2>
+                            {% if product.brand %}
+                                <p class="brand">{{ product.brand }}</p>
+                            {% endif %}
+                            <p class="price"> {{ product.price }} р.</p>
                         </a>
                     </div>
                 {% endfor %}

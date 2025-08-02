@@ -13,15 +13,17 @@
 </head>
 <body style="background-color: #f9f4ec">
     <div class="main-container">
-        <div class="header">
-            <ul class="header-list d-flex">
-                <li>
-                    <a href="#" class="d-flex mt-3">Главная</a>
-                </li>
-                <li>
-                    <a href="#" class="d-flex mt-3">Магазин</a>
-                </li>
-            </ul>
+        <div class="header mt-3">
+            <div class="header-right">
+                <ul class="header-list d-flex header-content nav-links">
+                    <li>
+                        <a href="/" class="d-flex mt-3 link header-color">Главная</a>
+                    </li>
+                    <li>
+                        <a href="/shop/" class="d-flex mt-3 link header-color">Магазин</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         {% block content %}{% endblock content %}
     </div>

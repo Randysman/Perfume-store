@@ -5,23 +5,30 @@
 
 {% block content %}
 <div class="container">
-    <div class="filters">
-    {% for item in categories %}
-        <ul class="filters">
-            <li {% if not category %} class="selected"{% endif %}>
-                <a href="{% url 'main:product_list' %}"></a>
-            </li>
-            <li {% if category.slug == item.slug %} class="selected"{% endif %}>
-                <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-            </li>
-        </ul>
-    {% endfor %}
-    <div class="container-product text-center">
+    <h1 class="catalog-title">Коллекция ароматов</h1>
+    <div class="">
+        <div class="container-cat">
+            <h4 class="pol">Пол</h4>
+            {% for item in categories %}
+            <ul class="cat nav-links mt-3">
+                <li {% if not category %} class="selected"{% endif %}>
+                    <a href="{% url 'main:product_list' %}" class="link link-color"></a>
+                </li>
+                <li {% if category.slug == item.slug %} class="selected"{% endif %}>
+                    <a href="{{ item.get_absolute_url }}" class="link link-color">{{ item.name }}</a>
+                </li>
+            </ul>
+        {% endfor %}
+        </div>
+    <div class="container-product  filters">
     {% for product in products %}
         <div class="list-grid">
-            <a href="#" class="list-card d-flex flex-column align-items-center text-center">
+            <a href="#" class="list-card d-flex flex-column  link">
                 <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
-                <h2 class="title-card">{{ product.name }}</h2>
+                <h2>{{ product.name }}</h2>
+                {% if product.brand %}
+                <p class="brand">{{ product.brand }}</p>
+                {% endif %}
                 <p class="price"> {{ product.price }} р.</p>
             </a>
         </div>
