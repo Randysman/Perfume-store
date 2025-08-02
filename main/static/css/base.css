@@ -89,11 +89,38 @@ footer {
 }
 
 .list-card {
-    width: 200px;
-    height: 325px;
-    border: 1px solid #000;
-    transition: all 0.5s ease;
-    background-color: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(200, 180, 150, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.list-card a {
+    color: #000;
+}
+
+.list-card:hover {
+    transform: translateY(-5px);
+}
+
+.list-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.list-card h2 {
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+    color: #3b3b3b;
+    margin-bottom: 5px;
+}
+
+.list-grid {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .footer-container {
@@ -124,10 +151,17 @@ body {
 container-product {
     border: 1px solid #000;
     padding: 10px;
-
 }
 
 container-cat {
     border: 1px sold #000;
     padding: 10px;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
 }

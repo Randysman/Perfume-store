@@ -7,7 +7,7 @@ from .models import Category, Product
 
 class ProductView(ListView):
     model = Product
-    template_name = "main/product/main.html"
+    template_name = "main/index/index.html"
     context_object_name = "products"
 
 

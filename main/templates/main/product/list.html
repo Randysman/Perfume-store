@@ -5,21 +5,25 @@
 
 {% block content %}
 <div class="container">
-    <div class="container-cat">
+    <div class="filters">
     {% for item in categories %}
-        <ul>
+        <ul class="filters">
             <li {% if not category %} class="selected"{% endif %}>
                 <a href="{% url 'main:product_list' %}"></a>
             </li>
-            <li {% if category.slug == item.slug %}class="selected"{% endif %}>
+            <li {% if category.slug == item.slug %} class="selected"{% endif %}>
                 <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
             </li>
         </ul>
     {% endfor %}
     <div class="container-product text-center">
     {% for product in products %}
-        <div class="">
-            <p>{{ product.name }}</p>
+        <div class="list-grid">
+            <a href="#" class="list-card d-flex flex-column align-items-center text-center">
+                <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
+                <h2 class="title-card">{{ product.name }}</h2>
+                <p class="price"> {{ product.price }} р.</p>
+            </a>
         </div>
     {% endfor %}
     </div>
