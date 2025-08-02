@@ -1,6 +1,6 @@
 footer {
     margin-top: 30px;
-    background-color: #0d0d0d;
+    background-color: #f9f4ec;
     color: #ccc;
     padding: 40px 0;
     border-top: 1px solid #222;
@@ -23,17 +23,25 @@ footer {
 .footer-logo p {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  color: #aaa;
+  color: #000;
   margin-top: 10px;
   max-width: 300px;
 }
 
+.footer-social p {
+    color: #000;
+}
+
 .footer-social a {
   display: inline-block;
-  color: #f5c97f;
+  color: #d8b98a;
   margin-right: 15px;
   text-decoration: none;
   font-weight: 500;
+}
+
+.footer-subscribe p {
+    color: #000;
 }
 
 .footer-subscribe form {
@@ -51,7 +59,7 @@ footer {
 }
 
 .footer-subscribe button {
-  background-color: #f5c97f;
+  background-color: #d8b98a;
   color: #000;
   border: none;
   padding: 10px 20px;
@@ -78,7 +86,6 @@ footer {
 .items {
     display: grid;
     grid-template-columns: repeat(auto-fill, 225px);
-    width: 100%;
 }
 
 .list-card {
@@ -97,7 +104,6 @@ footer {
 
 .header {
     height: 80px;
-    background-color: #fff;
     box-shadow: var(--box-shadow);
     border: 1px solid #000;
 }
@@ -109,4 +115,19 @@ footer {
 .main-container {
     padding-right: 15%;
     padding-left: 15%;
+}
+
+body {
+    background-color: #f9f4ec;
+}
+
+container-product {
+    border: 1px solid #000;
+    padding: 10px;
+
+}
+
+container-cat {
+    border: 1px sold #000;
+    padding: 10px;
 }

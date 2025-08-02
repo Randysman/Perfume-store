@@ -11,20 +11,20 @@
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
 </head>
-<body>
-<div class="main-container">
-    <div class="header ">
-        <ul class="header-list d-flex">
-            <li>
-                <a href="#" class="d-flex mt-3">Главная</a>
-            </li>
-            <li>
-                <a href="#" class="d-flex mt-3">Магазин</a>
-            </li>
-        </ul>
+<body style="background-color: #f9f4ec">
+    <div class="main-container">
+        <div class="header">
+            <ul class="header-list d-flex">
+                <li>
+                    <a href="#" class="d-flex mt-3">Главная</a>
+                </li>
+                <li>
+                    <a href="#" class="d-flex mt-3">Магазин</a>
+                </li>
+            </ul>
+        </div>
+        {% block content %}{% endblock content %}
     </div>
-    {% block content %}{% endblock content %}
-</div>
     <footer>
         <div class="footer-content footer-container">
             <div class="footer-logo">
