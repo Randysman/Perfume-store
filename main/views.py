@@ -31,3 +31,7 @@ class ProductListView(ListView):
                       {'category': category, 'products': current_page, 'categories': categories, 'slug': category_slug})
 
 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "main/product/detail.html"
+    slug_url_kwarg = "post_slug"
