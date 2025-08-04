@@ -245,3 +245,25 @@ container-cat {
 .nav-links a:hover {
     color: #b98e5a;
 }
+
+.detail-container {
+    border: 1px solid #000;
+    width: 100%;
+    height: 1000px;
+}
+
+.detail-header {
+    margin-top: 10px;
+    margin-left: 12px;
+    border: 1px solid #000;
+    width: 98%;
+    height: 150px;
+}
+
+.product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+

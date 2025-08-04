@@ -18,7 +18,7 @@
             <div class="items">
                 {% for product in products %}
                     <div class="">
-                        <a href="#" class="list-card d-flex flex-column align-items-center text-center link">
+                        <a href="{{ product.get_absolute_url }}" class="list-card d-flex flex-column align-items-center text-center link">
                             <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
                             <h2>{{ product.name }}</h2>
                             {% if product.brand %}

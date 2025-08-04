@@ -1,8 +1,16 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}
-{% endblock title %}
+{% block title %}{{ products.name }}{% endblock title %}
 
 {% block content %}
+    <div class="detail-container">
+        <div class="detail-header">
+            <h1 class="product-title">{{ products.name }}</h1>
+            {% if products.brand %}
+                <p class="brand">{{ products.brand }}</p>
+            {% endif %}
+
+        </div>
+    </div>
 {% endblock content %}
