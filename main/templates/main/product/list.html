@@ -20,20 +20,20 @@
             </ul>
         {% endfor %}
         </div>
-    <div class="container-product  filters">
-    {% for product in products %}
-        <div class="list-grid">
-            <a href="{{ product.get_absolute_url }}" class="list-card d-flex flex-column  link">
-                <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
-                <h2>{{ product.name }}</h2>
-                {% if product.brand %}
-                <p class="brand">{{ product.brand }}</p>
-                {% endif %}
-                <p class="price"> {{ product.price }} р.</p>
-            </a>
+        <div class="container-product  filters">
+            {% for product in products %}
+                <div class="list-grid">
+                    <a href="{{ product.get_absolute_url }}" class="list-card d-flex flex-column  link align-items-center text-center">
+                        <img src="{{ product.image.url }}" class="card-img" alt="{{ product.name }}">
+                        <h2>{{ product.name }}</h2>
+                        {% if product.brand %}
+                            <p class="brand">{{ product.brand }}</p>
+                        {% endif %}
+                        <p class="price"> {{ product.price }} р.</p>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    </div>
     </div>
 </div>
 {% endblock %}

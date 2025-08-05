@@ -30,9 +30,12 @@ class Brand(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True)
-    brand = models.ForeignKey(Brand, related_name='brand', null=True, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, related_name='brand', null=True, blank=True, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100, unique=100)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, null=True)
+    image_min = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, null=True)
+    image_left = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, null=True)
+    image_right = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, null=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)

@@ -10,7 +10,20 @@
             {% if products.brand %}
                 <p class="brand">{{ products.brand }}</p>
             {% endif %}
-
+        <div class="main-detail">
+            <div class="d-flex">
+                <img src="{{ products.image.url }}" alt="{{ products.name }}" class="main-photo" />
+                <img src="{{ products.image_min.url }}" alt="{{ products.name }}" class="min-photo" />
+                <div class="detail-image d-flex">
+                    <img src="{{ products.image_left.url }}" alt="Упаковка" class="left-photo"/>
+                    <img src="{{ products.image_right.url }}" alt="На столике" class="right"/>
+                    <button class="btn" type="submit">Добавить в корзину</button>
+                    <p>Варианты упаковки</p>
+                </div>
+                    <p class="main-detail-disc-tag">Описание</p>
+                    <p class="main-detail-disc">{{ products.description }}</p>
+            </div>
+        </div>
         </div>
     </div>
 {% endblock content %}
