@@ -356,3 +356,32 @@ container-cat {
 .brand {
     text-align: center;
 }
+
+.login {
+    position: relative;
+    width: 1400px;
+    height: 600px;
+    margin-top: 100px;
+    border-radius: 10px;
+}
+
+.login button {
+    background-color: #d8b98a;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #e4b761;
+}
+
+.login-title {
+    margin-top: 5%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
