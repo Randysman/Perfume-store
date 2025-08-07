@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth.views import PasswordResetView
 
 from users.forms import UserCreationForm
 from django.shortcuts import render, redirect

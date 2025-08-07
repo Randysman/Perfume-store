@@ -16,6 +16,12 @@
                 name="username" placeholder="Имя пользователя" required>
             </div>
             <div class="mb-3">
+                <label for="id_email" class="form-label form-stylereg">Email</label>
+                <input type="email" class="form-control form-stylereg" id="id_email"
+                value="{% if form.email.value %}{{ form.email.value }}{% endif %}"
+                name="email" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
                 <label for="id_password1" class="form-label form-stylereg">Пароль</label>
                 <input type="password" class="form-control form-stylereg" id="id_password1"
                 value="{% if form.password1.value %}{{ form.password1.value }}{% endif %}"
