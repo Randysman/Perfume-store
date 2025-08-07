@@ -1,3 +1,5 @@
+from django.contrib import auth
+
 from users.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import views, authenticate, login
@@ -30,4 +32,5 @@ class Register(View):
 
 
 def profile_view(request):
-    return render(request, 'profile.html')
+    return render(request, 'registration/profile.html')
+

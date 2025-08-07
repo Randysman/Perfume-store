@@ -147,17 +147,18 @@ footer {
 }
 
 .header {
+    position: relative;
     height: 80px;
     box-shadow: var(--box-shadow);
 }
 
-.header-right {
+.header-left {
     width: 230px;
     height: 80px;
     margin-top: 8px;
 }
 
-.header-right ul {
+.header-left ul {
     list-style-type: none;
 }
 
@@ -171,7 +172,7 @@ footer {
 }
 
 body {
-    background-color: #f9f4ec;
+    background-color: ;
 }
 
 container-product {
@@ -406,4 +407,64 @@ container-cat {
 .form-stylereg {
     width: 350px;
     text-align: center;
+}
+
+.header-right {
+    position: absolute;
+    width: 230px;
+    height: 80px;
+    margin-top: 8px;
+    left: 1229px;
+    top: -8px;
+}
+
+.header-right ul {
+    list-style-type: none;
+}
+
+.profile {
+    position: absolute;
+    background-color: #f9f2ec;
+}
+
+.container-profile {
+    position: relative;
+    width: 1400px;
+    height: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-styleprofile {
+    width: 250px;
+}
+
+.box2 {
+    margin-top: 212px;
+    margin-left: 20px;
+}
+
+.box22 {
+    margin-left: 20px;
+}
+
+.profile button {
+    position: absolute;
+    weight: 150px;
+    background-color: #d8b98a;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    left: 135px;
+}
+
+.profile ul {
+    position: absolute;
+    list-style-type: none;
+    top: 485px;
+    left: 290px;
 }
