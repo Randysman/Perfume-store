@@ -3,5 +3,42 @@
 {% block title %}Корзина {{ user.username.title }}{% endblock title %}
 
 {% block content %}
-    {{ baskets }}
+    <section class="basket d-flex">
+        <div class="basket-title">
+            <h2>Корзина покупок</h2>
+        </div>
+        <div class="basket-cards">
+            {% for item in baskets %}
+                {% with product=item.product %}
+                    <div class="basket-card d-flex">
+                        <div class="basket-card-img">
+                            <img src="{% if product.image %}{{ product.image.url }}{% endif %}">
+                        </div>
+                        <div class="basket-card-info">
+                            <div class="basket-card-name">
+                                <p>{{ product.name }}</p>
+                            </div>
+                            <div class="basket-card-q">
+                                <p>Количество: {{ item.quantity }}</p>
+                            </div>
+                        </div>
+                        <div class="basket-card-price">
+                                <p class="price">{{ product.price }}</p>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+        <div class="total">
+            <h5>Общая сумма: {{ basket.sum }} р.</h5>
+        </div>
+        <div class="basket-buttons d-flex gap-3">
+            <a href="/shop" class="basket-btn">Продолжить покупки</a>
+                {% with basket_quantity=basket|length %}
+                    {% if basket_quantity > 0 %}
+                        <a href="#" class="basket-btn">Оформить заказ</a>
+                    {% endif %}
+                {% endwith %}
+        </div>
+    </section>
 {% endblock content %}
