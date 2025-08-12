@@ -22,7 +22,9 @@
                     <img src="{{ products.image_right.url }}" alt="На столике" class="right"/>
                     <p>Варианты упаковки</p>
                     {% endif %}
+                    <a href="{% url 'basket:basket_add' products.id %}">
                     <button class="btn" type="submit">Добавить в корзину</button>
+                    </a>
                 </div>
                     <p class="main-detail-disc-tag">Описание</p>
                     <p class="main-detail-disc">{{ products.description }}</p>

@@ -9,9 +9,10 @@ class Basket(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
+    modified_timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Корзина для {self.user.name} | Продукт {self.product.name}'
+        return f'Корзина для {self.user.username} | Продукт {self.product.name}'
 
     def sum(self):
         return self.quantity * self.product.price
