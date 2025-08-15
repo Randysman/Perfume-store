@@ -32,11 +32,11 @@
         <div class="total">
             <h5>Общая сумма: {{ baskets.sum }} р.</h5>
         </div>
-        <div class="btn basket-btn d-flex gap-3">
-            <a href="/shop" class="basket-btn">Продолжить покупки</a>
-                {% if quantity > 0 %}
-                    <a href="#" class="basket-btn">Оформить заказ</a>
-                {% endif %}
+        <div class="basket-buttons d-flex gap-3">
+            <a href="/shop" class="basket-btn link">Продолжить покупки</a>
+            {% if quantity > 0 %}
+                <a href="#" class="basket-btn link">Оформить заказ</a>
+            {% endif %}
         </div>
     </section>
 {% endblock content %}

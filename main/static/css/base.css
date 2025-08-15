@@ -517,17 +517,13 @@ container-cat {
 
 .basket {
     flex-direction: column;
+    margin-bottom: 10%;
 }
 
-.basket-btn {
-    background-color: #d8b98a;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 165px;
+
+
+.basket-btn:hover {
+    background-color: #e4b761;
 }
 
 .basket-btn a {
@@ -561,4 +557,18 @@ container-cat {
     text-align: center;
     margin-left: -50px;
     margin-top: -40px;
+}
+
+.basket-btn {
+    background-color: #d8b98a;
+    color: #000;
+    border: none;
+    box-shadow: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    max-width: 165px;
+    transition: all 0.5s ease;
+    text-align: center;
 }
