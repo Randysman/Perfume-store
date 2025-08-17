@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} {% endblock title %}
+
+{% block content %}
+    <div class="forcreate">
+        <div class="profile-order p-4 mb-4 mx-2">
+            <h2 class="mb-2">Создание заказа</h2>
+            <form action="" method="post" class="order-form">
+                {% csrf_token %}
+                <div class="col-md-12 mb-3">
+                    <label for="id_first_name" class="form-label">Имя</label>
+                    <input type="text" class="form-control form-styleprofile" id="id_first_name" name="first_name"
+                    placeholder="Ваше имя" value="{{ form.first_name.value|default:'' }}" required>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="id_last_name" class="form-label">Фамилия</label>
+                    <input type="text" class="form-control form-styleprofile" id="id_last_name" name="last_name"
+                    placeholder="Ваша фамилия" value="{{ form.last_name.value|default:'' }}" required>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="text" class="form-control form-styleprofile" id="id_email" name="email"
+                    placeholder="Ваша почта" value="{{ form.email.value|default:'' }}" required>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="id_address" class="form-label">Адрес</label>
+                    <input type="text" class="form-control form-styleprofile" id="id_address" name="address"
+                    placeholder="Ваш адрес" value="{{ form.address.value|default:'' }}" required>
+                </div>
+                <p><input type="submit" class="order-btn" value="Создать заказ"></p>
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="checkout">
+            <h1>Заказ</h1>
+            <div class="order-info">
+                {% for item in baskets %}
+                    <li>
+                        {{ item.quantity }} x {{ item.product.name }}
+                        <p> {{ item.sum }} р.</p>
+                    </li>
+                    <p>Общая сумма: {{ baskets.sum }} р.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
