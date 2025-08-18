@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="basket-card-price">
-                                <p class="price">{{ product.price }}</p>
+                            <p class="price">{{ product.price }}</p>
                         </div>
                     </div>
                 {% endwith %}
@@ -35,7 +35,7 @@
         <div class="basket-buttons d-flex gap-3">
             <a href="/shop" class="basket-btn link">Продолжить покупки</a>
             {% if quantity > 0 %}
-                <a href="#" class="basket-btn link">Оформить заказ</a>
+                <a href="{% url 'orders:order_create' %}" class="basket-btn link">Оформить заказ</a>
             {% endif %}
         </div>
     </section>

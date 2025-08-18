@@ -10,7 +10,7 @@ class Order(models.Model):
     last_name = models.CharField(max_length=25)
     email = models.EmailField()
     address = models.CharField(max_length=200)
-    created = models.DateTimeField(auto_created=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
