@@ -16,11 +16,12 @@ def order_create(request):
         form = OrderCreateForm(request.POST, request=request)
         if form.is_valid():
             order = form.save()
+            order.user = request.user
+            order.save()
             for item in baskets:
                 price = item.product.price
                 OrderItem.objects.create(order=order, product=item.product, price=price, quantity=item.quantity)
             baskets.delete()
-            request.session['order_id'] = order.id
             return render(request, 'orders/order_done.html', {'order': order})
     else:
         form = OrderCreateForm(request=request)
