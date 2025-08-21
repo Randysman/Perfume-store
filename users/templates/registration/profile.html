@@ -55,6 +55,32 @@
                             {% csrf_token %}
                             <button type="submit" class="btn">Выйти</button>
                         </form>
+                        <div class="orders">
+                            <h2 class="mb-2">Ваши заказы</h2>
+                            {% if orders %}
+                                <div class="orderss">
+                                    {% for order in orders %}
+                                        <div class="order-basket">
+                                            <h5 class="order-title">Заказ № {{ order.id }}</h5>
+                                            <p class="order-desc">
+                                                {% for item in order.items.all %}
+                                                    <div class="orders-baskets">
+                                                        <span class="dadad">Имя: </span><a class="" href="{% url 'main:product_detail' item.product.slug %}">{{ item.product.name }}</a>
+                                                        <br>
+                                                        <span class="dadad">Количество:</span>{{ item.quantity }},
+                                                        <span class="dadad">Цена: {{ item.price }} р. </span> <br>
+                                                        <span class="dadad">Дата:</span> {{ order.created }}
+                                                        <br>
+                                                    </div>
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <h4 class="notorders">Корзина пуста</h4>
+                            {% endif %}
+                        </div>
                     </li>
                 </ul>
             </div>

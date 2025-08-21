@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.views import PasswordResetView
 
+from orders.models import Order
 from users.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import views, authenticate, login
@@ -33,5 +34,6 @@ class Register(View):
 
 
 def profile_view(request):
-    return render(request, 'registration/profile.html')
+    order = Order.objects.filter(user=request.user)
+    return render(request, 'registration/profile.html', {'orders': order})
 
