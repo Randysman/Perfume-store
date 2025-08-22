@@ -621,6 +621,7 @@ container-cat {
 }
 
 .orderss {
+    position: absolute;
     margin-left: 70px;
     width: 520px;
     max-height: 52vh;
@@ -643,11 +644,18 @@ container-cat {
 .dadad {
     font-size: 18px;
     font-weight: 700;
+    text-color: #000;
 }
+
 
 .orders-baskets {
     margin-left: 10px;
     margin-top: 10px;
+}
+
+.orders-baskets a {
+    color: #000;
+    text-decoration: none;
 }
 
 .order-desc {
