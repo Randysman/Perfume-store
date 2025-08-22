@@ -5,6 +5,13 @@ from users.models import User
 
 
 class Order(models.Model):
+    STATUS_CHOICES = (
+    ('pending', 'В ожидании'),
+    ('processing', 'В обработке'),
+    ('completed', 'Завершен'),
+    ('cancelled', 'Отменен'),
+    )
+
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
@@ -12,7 +19,8 @@ class Order(models.Model):
     address = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    paid = models.BooleanField(default=False)
+    status = models.CharField(default='pending', max_length=20, choices=STATUS_CHOICES)
+    yookassa_payment_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'Заказ {self.id}'
