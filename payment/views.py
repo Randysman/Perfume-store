@@ -1,10 +1,17 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from yookassa import Configuration
+from yookassa import Configuration, Payment
 from orders.models import Order
 from django.conf import settings
 from main.models import Product
+from uuid import uuid4
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 Configuration.account_id = settings.YOOKASSA_SHOP_ID
@@ -19,5 +26,48 @@ def checkout(request, order_id):
         return redirect('main:product_main')
 
 
+def create_yookassa_payment(request, order, item):
+    receipt_items = [{
+        "description" : f"Заказ: {order.id}",
+        "quantity" : item.quantity,
+        "amount": {
+            "value": f"{order.price}",
+            "currency": "RUB"
+        },
+        "vat_code": getattr(settings, 'YOOKASSA_VAT_CODE', 1),
+        "payment_mode": "full_payment",
+        "payment_subject": "commodity"
+    }]
 
+    customer = {
+        "email": order.email
+    }
 
+    try:
+        idempotence_key = str(uuid4())
+        payment = Payment.create({
+            "value": f"{order.price}",
+            "currency": "RUB"
+        },
+            {"confirmation": {
+            "type" : "redirect",
+            "return_url": request.build_absolute_url('/orders/yookassa/success/' + f'?order_id={order.id}')
+        },
+            "capture": True,
+            "description": f"Заказ#{order.id}",
+            "metadata": {
+                "order_id": order.id,
+                "user_id": order.user.id
+            },
+            "receipt": {
+                "customer": customer,
+                "items": receipt_items
+            }
+            }, idempotence_key)
+
+        order.yookassa_payment_id = payment.id
+        order.save()
+        return payment
+    except Exception as e:
+        logger.error(f"Ошибка создания платежа ЮКасса: {str(e)}")
+        raise

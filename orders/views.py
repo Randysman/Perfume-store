@@ -27,7 +27,7 @@ def order_create(request, create_yookassa_payment=None):
                 price = item.product.price
                 try:
                     Order.objects.create(order=order, product=item.product, price=price, quantity=item.quantity, user=request.user, status='pending')
-                    payment = create_yookassa_payment(order, request)
+                    payment = create_yookassa_payment(order, request, item)
                     return redirect(payment.confirmation.confirmation_url)
                 except Exception as e:
                     logger.error(f'Ошибка создания платежа: {str(e)}')
