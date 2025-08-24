@@ -71,3 +71,15 @@ def create_yookassa_payment(request, order, item):
     except Exception as e:
         logger.error(f"Ошибка создания платежа ЮКасса: {str(e)}")
         raise
+
+
+def yookassa_cancel(request):
+    order_id = request.GET.get('order_id')
+    if order_id:
+        order = get_object_or_404(Order, id=order_id)
+        order.status = 'cancelled'
+        order.save()
+        messages.error(request, 'Платеж отменен.')
+        return render(request, 'payment/yookassa_cancel.html', {'order': order})
+    return redirect('orders:checkout')
+
