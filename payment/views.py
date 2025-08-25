@@ -1,5 +1,3 @@
-import logging
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,6 +7,9 @@ from django.conf import settings
 from main.models import Product
 from uuid import uuid4
 import logging
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 
 logger = logging.getLogger(__name__)
@@ -83,3 +84,29 @@ def yookassa_cancel(request):
         return render(request, 'payment/yookassa_cancel.html', {'order': order})
     return redirect('orders:checkout')
 
+
+def yookassa_success(request):
+    order_id = request.GET.get('order_id')
+    if order_id:
+        order = get_object_or_404(Order, id=order_id)
+        if order.status == 'completed':
+            messages.success(request, 'Оплата прошла успешно.')
+            return render(request, 'payment/yookassa_success.html', {'order': order})
+        elif order.status == 'cancelled':
+            return redirect('payment:yookassa_cancel')
+        if order.yookassa_payment_id:
+            try:
+                payment = Payment.find_one(order.yookassa_payment_id)
+                if payment.status == 'succeeded':
+                    order.status = 'completed'
+                    order.save()
+                    messages.success(request, 'Оплата прошла успешно!')
+                    return render(request, 'payment/yookassa_success.html', {'order': order})
+                elif payment.status in ['canceled', 'failed']:
+                    order.status = 'cancelled'
+                    order.save()
+                    return redirect('payment:yookassa_cancel')
+            except Exception as e:
+                logger.error(f'Ошибка проверки платежа: {str(e)}')
+        return render(request, 'payment/yookassa_pending.html', {'order': order})
+    return redirect('main:product_main')
