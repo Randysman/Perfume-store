@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotAllowed, HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from yookassa import Configuration, Payment
 from orders.models import Order
@@ -110,3 +111,65 @@ def yookassa_success(request):
                 logger.error(f'Ошибка проверки платежа: {str(e)}')
         return render(request, 'payment/yookassa_pending.html', {'order': order})
     return redirect('main:product_main')
+
+
+@csrf_exempt
+@require_POST
+def yookassa_webhook(request):
+    if request.method != 'POST':
+        logger.warning(f"Недопустимый метод запроса")
+        return HttpResponseNotAllowed(['POST'])
+
+    logger.info(f"ЮКасса webhook получен | IP {request.META.get('REMOTE_ADDR')} | User-Agent {request.META.get('HTTP_USER_AGENT')}")
+
+    try:
+        raw_body = request.body.decode('utf-8')
+        event_json = json.loads(raw_body)
+        event_type = event_json.get('event')
+        payment = event_json.get('object', {})
+        payment_id = payment.get('id')
+
+        logger.info(f'Обработка события ЮКасса {event_type} | Payment ID {payment_id}')
+
+        metadata = payment.get('metadata', {})
+        order_id = metadata.get('order_id')
+        user_id = metadata.get('user_id')
+
+        if not all([order_id, user_id]):
+            logger.error(f'Отсутствуют метаданные order_id={order_id}, user_id={user_id}')
+            return HttpResponseBadRequest("Отсутствуют метаданные")
+
+        order = Order.objects.select_for_update().get(id=order_id, user_id=user_id)
+
+        if event_type == 'payment.succeeded':
+            if payment.get('status') == 'succeeded':
+                if order.status == 'completed':
+                    logger.info(f'Заказ {order_id} уже обработан')
+                    return HttpResponse(status=200)
+
+                order.status = 'completed'
+                order.yookassa_payment_id = payment_id
+                order.save()
+                logger.info(f'Заказ {order_id} успешно обработан')
+
+        elif event_type == 'payment.canceled':
+            if payment.get('status') == 'canceled':
+                if order.status == 'cancelled':
+                    logger.info(f'Заказ {order_id} отменен')
+                    return HttpResponse(status=200)
+
+                order.status = 'cancelled'
+                order.save()
+                logger.info(f'Заказ {order_id} отмечен как отмененный')
+
+        return HttpResponse(status=200)
+
+    except json.JSONDecodeError as e:
+        logger.error(f"Ошибка декодирования json {str(e)}")
+        return HttpResponseBadRequest("Неверный JSON")
+    except Order.DoesNotExist:
+        logger.error(f"Заказ Не найден order_id={order_id}, user_id={user_id}")
+        return  HttpResponseBadRequest("Заказ не найден")
+    except Exception as e:
+        logger.error(f"Непредвиденная ошибка")
+        return HttpResponse(status=500)
