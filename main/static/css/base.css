@@ -664,3 +664,7 @@ container-cat {
     margin-top: 10px;
     margin-left: 10px;
 }
+
+.reset-pass a {
+    font-weight: bold;
+}

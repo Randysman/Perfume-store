@@ -20,7 +20,7 @@ def order_create(request, create_yookassa_payment=None):
     if request.method == 'POST':
         form = OrderCreateForm(request.POST, request=request)
         if form.is_valid():
-            order = form.save()
+            order = form.save(commit=False)
             order.user = request.user
             order.save()
             for item in baskets:
