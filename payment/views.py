@@ -27,6 +27,8 @@ def checkout(request, order_id):
         messages.info(request, f'Вы приобрели заказ {order_id}')
         return redirect('main:product_main')
 
+    return render(request, 'orders/checkout.html', {'order': order, 'total_price': order.get_total_cost()})
+
 
 def create_yookassa_payment(request, order, item):
     receipt_items = [{

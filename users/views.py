@@ -34,6 +34,6 @@ class Register(View):
 
 
 def profile_view(request):
-    order = Order.objects.filter(user=request.user)
+    order = Order.objects.filter(user=request.user, status='completed')
     return render(request, 'registration/profile.html', {'orders': order})
 
