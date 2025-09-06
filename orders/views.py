@@ -25,10 +25,9 @@ def order_create(request, create_yookassa_payment=None):
             order.save()
             for item in baskets:
                 price = item.product.price
-                OrderItem.objects.create(product=item.product, price=price, quantity=item.quantity, user=request.user)
-                payment = create_yookassa_payment(order, request, item)
+                OrderItem.objects.create(order=order, product=item.product, price=price, quantity=item.quantity)
             baskets.delete()
-            return render(request, 'orders/order_done.html', {'order': order})
-        else:
-            form = OrderCreateForm(request=request)
-        return render(request, 'orders/order_create.html', {'form': form, 'baskets': Basket.objects.filter(user=request.user)})
+            return redirect('payment:checkout', order_id=order.id)
+    else:
+        form = OrderCreateForm(request=request)
+    return render(request, 'orders/order_create.html', {'form': form, 'baskets': Basket.objects.filter(user=request.user)})

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotAllowed, HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from yookassa import Configuration, Payment
-from orders.models import Order
+from orders.models import Order, OrderItem
 from django.conf import settings
 from main.models import Product
 from uuid import uuid4
@@ -21,13 +21,23 @@ Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
 @login_required
 def checkout(request, order_id):
-    order = get_object_or_404(Order, order_id)
+    order = get_object_or_404(Order, id=order_id, user=request.user)
 
-    if Order.objects.filter(user=request.user, order=order, status='completed').exists():
+    if Order.objects.filter(user=request.user, id=order_id, status='completed').exists():
         messages.info(request, f'Вы приобрели заказ {order_id}')
         return redirect('main:product_main')
 
-    return render(request, 'orders/checkout.html', {'order': order, 'total_price': order.get_total_cost()})
+    if request.method == 'POST':
+        try:
+            payment = create_yookassa_payment(order, request)
+            return redirect(payment.confirmation.confirmation_url)
+        except Exception as e:
+            logger.error(f"Ошибка создания платежа: {str(e)}")
+            messages.error(request, f"Ошибка обработки платежа: {str(e)}")
+            return render(request, 'payment/checkout.html', {'order': order, 'total_price': order.get_total_cost()})
+
+
+    return render(request, 'payment/checkout.html', {'order': order, 'total_price': order.get_total_cost()})
 
 
 def create_yookassa_payment(request, order, item):
