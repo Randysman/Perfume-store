@@ -40,9 +40,9 @@
                 {% for item in baskets %}
                     <li>
                         {{ item.quantity }} x {{ item.product.name }}
-                        <p> {{ item.sum }} р.</p>
+                        <p> {{ item.product.price }} р.</p>
                     </li>
-                    <p>Общая сумма: {{ baskets.sum }} р.</p>
+                <strong><p>Общая сумма: {{ item.sum }} р.</p></strong>
                 {% endfor %}
             </div>
         </div>

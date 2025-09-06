@@ -337,6 +337,7 @@ container-cat {
 }
 
 .detail-image button:hover {
+    color: #000;
     background-color: #e4b761;
 }
 
@@ -583,8 +584,18 @@ container-cat {
 }
 
 .checkout {
+    position: absolute;
     margin-top: 70px;
     width: 600px;
+    right: 150px;
+    top: -70px;
+    border: 1px solid #00000036;
+    border-radius: 10px;
+    list-style-type: none;
+}
+
+.checkout h1 {
+    margin-left: 20px;
 }
 
 .order-btn {
@@ -608,7 +619,7 @@ container-cat {
 .forcreate {
     position: relative;
     width: 1400px;
-    height: 600px;
+    height: 800px;
     border-radius: 10px;
 }
 
