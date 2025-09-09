@@ -4,6 +4,7 @@ __pycache__/
 
 .idea
 .env
+logging.log
 
 db.sqlite3
 media/

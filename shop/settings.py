@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 import django.core.mail.backends.console
 from django.urls import reverse_lazy
+from yookassa import Configuration
+import logging
 
 
 load_dotenv()
@@ -16,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n*3g^%*t8g3d%d^&s7m2*3+2j@lxm7$u+miy^yg75#@rp7ro2v'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,6 +92,38 @@ DATABASES = {
 }
 
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        "main_format": {
+            "format": "[{asctime} - {levelname} - {module} - {filename} - {funcName} - {message}]",
+            "style": "{",
+        },
+    },
+    'handlers': {
+        'main': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_format',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'main_format',
+            'filename': 'logging.log',
+        },
+    },
+
+    'loggers': {
+        'main': {
+            'handlers': ['main', 'file'],
+            'level': 'INFO',
+            'propagate': True
+        },
+    },
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -144,5 +178,5 @@ YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID')
 YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY')
 YOOKASSA_VAT_CODE = 1
 
-from yookassa import Configuration
+
 Configuration.configure(YOOKASSA_SHOP_ID, YOOKASSA_SECRET_KEY)
