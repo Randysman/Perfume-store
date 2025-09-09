@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from main.models import Product
+from shop.services import get_objects_filter, get_objects
 from .models import Basket
 
 
 @login_required
 def basket_view(request):
     user = request.user
-    baskets = Basket.objects.filter(user=user)
+    baskets = get_objects_filter(Basket, user=user)
     total_quantity = 0
     total_sum = 0
     for basket in baskets:
@@ -22,8 +23,8 @@ def basket_view(request):
 
 def basket_add(request, product_id):
     current_page = request.META.get('HTTP_REFERER')
-    product = Product.objects.get(id=product_id)
-    baskets = Basket.objects.filter(user=request.user, product=product)
+    product = get_objects(Product, id=product_id)
+    baskets = get_objects_filter(Basket, user=request.user, product=product)
 
     if not baskets.exists():
         Basket.objects.create(user=request.user, product=product, quantity=1)

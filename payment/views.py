@@ -12,6 +12,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from shop.services import get_objects_filter
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,7 @@ Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 def checkout(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
 
-    if Order.objects.filter(user=request.user, id=order_id, status='completed').exists():
+    if get_objects_filter(Order, user=request.user, id=order_id, status='completed').exists():
         messages.info(request, f'Вы приобрели заказ {order_id}')
         return redirect('main:product_main')
 

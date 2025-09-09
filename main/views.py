@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 
+from shop.services import get_objects_all
 from .models import Category, Product
 
 
@@ -19,8 +20,8 @@ class ProductListView(ListView):
     def get(self, request, category_slug=None):
         page = request.GET.get('page', 1)
         category = None
-        products = Product.objects.all()
-        categories = Category.objects.all()
+        products = get_objects_all(Product)
+        categories = get_objects_all(Category)
         paginator = Paginator(products, 6)
         current_page = paginator.page(int(page))
         if category_slug:

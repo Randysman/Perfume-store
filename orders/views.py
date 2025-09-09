@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 
+from shop.services import get_objects_filter
 from .models import Order, OrderItem
 from .forms import OrderCreateForm
 from basket.models import Basket
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def order_create(request, create_yookassa_payment=None):
     if request.user.is_authenticated:
-        baskets = Basket.objects.filter(user=request.user)
+        baskets = get_objects_filter(Basket, user=request.user)
     else:
         baskets = []
 

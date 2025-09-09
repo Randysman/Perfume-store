@@ -3,6 +3,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.db.models import Prefetch
 
 from orders.models import Order, OrderItem
+from shop.services import get_objects_filter
 from users.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import views, authenticate, login
@@ -35,7 +36,7 @@ class Register(View):
 
 
 def profile_view(request):
-    order = Order.objects.filter(user=request.user, status='completed').prefetch_related(Prefetch('items',
+    order = get_objects_filter(Order, user=request.user, status='completed').prefetch_related(Prefetch('items',
     queryset=OrderItem.objects.select_related('product'),)).order_by('-id')
     return render(request, 'registration/profile.html', {'orders': order})
 
