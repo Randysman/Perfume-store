@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 
@@ -6,12 +8,14 @@ from shop.services import get_objects_all
 from .models import Category, Product
 
 
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class ProductView(ListView):
     model = Product
     template_name = "main/index/index.html"
     context_object_name = "products"
 
 
+@method_decorator(cache_page(60 * 10), name='dispatch')
 class ProductListView(ListView):
     model = Category
     template_name = "main/product/list.html"
@@ -32,6 +36,7 @@ class ProductListView(ListView):
                       {'category': category, 'products': current_page, 'categories': categories, 'slug': category_slug})
 
 
+@method_decorator(cache_page(60 * 60 ), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = "main/product/detail.html"
