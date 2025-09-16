@@ -1,8 +1,8 @@
-venv/
+/venv/
 .pylintrc
 __pycache__/
 
-.idea
+/.idea
 .env
 logging.log
 
