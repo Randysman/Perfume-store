@@ -1,15 +1,22 @@
 FROM python:3.11-alpine
 RUN apk add --no-cache \
-    python3-dev
+    python3-dev \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    postgresql-dev \
+    jpeg-dev \
+    zlib-dev \
+    linux-headers \
+    bash
 
 RUN addgroup -S djangogroup && adduser -S djangouser -G djangogroup
 
 WORKDIR /app
 
-COPY ./requirements.txt .
+COPY requirements.txt .
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
-
+    pip install --no-cache-dir -r requirements.txt
 
 COPY --chown=djangouser:djangogroup . .
 

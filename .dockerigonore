@@ -4,15 +4,9 @@ __pycache__
 *.pyd
 .env
 .venv
-env/
 venv/
-ENV/
-env.bak/
-venv.bak/
-.DS_Store
-.git
-.gitignore
-README.md
+.env.local
+.env.prod
 docker-compose.override.yml
 db.sqlite3
 media/
