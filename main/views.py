@@ -8,7 +8,7 @@ from shop.services import get_objects_all
 from .models import Category, Product
 
 
-@method_decorator(cache_page(60 * 60), name='dispatch')
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class ProductView(ListView):
     model = Product
     template_name = "main/index/index.html"
@@ -42,3 +42,7 @@ class ProductDetailView(DetailView):
     template_name = "main/product/detail.html"
     slug_url_kwarg = "post_slug"
     context_object_name = "products"
+
+
+def header_view(request):
+    return render(request, "includes/header.html")
