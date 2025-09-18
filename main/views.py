@@ -8,7 +8,7 @@ from shop.services import get_objects_all
 from .models import Category, Product
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class ProductView(ListView):
     model = Product
     template_name = "main/index/index.html"

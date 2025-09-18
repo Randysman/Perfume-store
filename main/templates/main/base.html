@@ -15,35 +15,14 @@
 </head>
 <body style="background-color: #f9f4ec">
     <div class="main-container">
-        <div class="header mt-3">
-            <div class="header-left">
-                <ul class="header-list d-flex header-content nav-links">
-                    <li>
-                        <a href="/" class="d-flex mt-3 link header-color">Главная</a>
-                    </li>
-                    <li>
-                        <a href="/shop/" class="d-flex mt-3 link header-color">Магазин</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="header-right">
-                <a href="{% url 'basket:basket' %}"><img src="{% static 'img/basket-mini.png' %}" class="basket-logo" alt=""></a>
-                <ul>
-                {% if user.is_authenticated %}
-                    <li class="header-list d-flex header-content nav-links">
-                        <a href="{% url 'users:profile' %}" class="d-flex mt-3 link header-color header-login">{{ user.username }}</a>
-                    </li>
-                {% else %}
-                    <li class="header-list d-flex header-content nav-links">
-                        <a href="{% url 'users:login' %}" class="d-flex mt-3 link header-color header-login">Войти</a>
-                    </li>
-                {% endif %}
-                <p class="basket-quantity">
-                    {{ basket_quantity }}
-                </p>
-                </ul>
-            </div>
-        </div>
+        <div id="header"></div>
+        <script>
+            fetch("{% url 'main:header' %}")
+              .then(response => response.text())
+              .then(html => {
+                document.getElementById("header").innerHTML = html;
+              });
+        </script>
         {% block content %}{% endblock content %}
     </div>
     <footer>
