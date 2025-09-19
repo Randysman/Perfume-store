@@ -9,6 +9,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     healthcheck:
@@ -30,6 +33,9 @@ services:
       - .:/app
       - static_volume:/app/static
       - media_volume:/app/media
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     depends_on:
       db:
         condition: service_healthy
@@ -54,7 +60,7 @@ services:
 
   celery:
     build: .
-    command: celery -A django_project worker --loglevel=info
+    command: celery -A shop worker --loglevel=info
     volumes:
       - .:/app
     env_file:
@@ -67,15 +73,15 @@ services:
     depends_on:
       redis: 
         condition: service_started
-      web:
-        condition: service_started
       db:
         condition: service_healthy
+    networks:
+      - perfume-network
     restart: unless-stopped
 
   celery-beat:
     build: .
-    command: celery -A django_project beat --loglevel=info
+    command: celery -A shop beat --loglevel=info
     volumes:
       - .:/app
     env_file:
@@ -88,10 +94,10 @@ services:
     depends_on:
       redis: 
         condition: service_started
-      web:
-        condition: service_started
       db:
         condition: service_healthy
+    networks:
+      - perfume-network
     restart: unless-stopped
 
 networks:

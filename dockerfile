@@ -20,10 +20,17 @@ RUN pip install --upgrade pip && \
 
 COPY --chown=djangouser:djangogroup . .
 
-RUN chmod +x entrypoint.sh
+RUN echo '#!/bin/sh' > /entrypoint.sh && \
+    echo 'set -e' >> /entrypoint.sh && \
+    echo 'echo "Applying migrations"' >> /entrypoint.sh && \
+    echo 'python manage.py migrate --noinput' >> /entrypoint.sh && \
+    echo 'echo "Collecting static files"' >> /entrypoint.sh && \
+    echo 'python manage.py collectstatic --noinput --clear' >> /entrypoint.sh && \
+    echo 'exec "$@"' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
 
 USER djangouser
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
 
-CMD ["gunicorn", "django_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "shop.wsgi:application", "--bind", "0.0.0.0:8000"]

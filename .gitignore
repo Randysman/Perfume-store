@@ -11,3 +11,5 @@ media/
 
 products/
 docker-compose.override.yml
+celerybeat-schedule
+staticfiles/
