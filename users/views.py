@@ -9,6 +9,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import views, authenticate, login
 from django.views import View
 
+from users.tasks import send_email_reset_password
+
 
 class Register(View):
     template_name='registration/register.html'
@@ -40,3 +42,32 @@ def profile_view(request):
     queryset=OrderItem.objects.select_related('product'),)).order_by('-id')
     return render(request, 'registration/profile.html', {'orders': order})
 
+
+class AsyncPasswordResetView(PasswordResetView):
+    def form_valid(self, form):
+        for user in form.get_users(form.cleaned_data["email"]):
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = defaul_token_generator.make_token(user)
+
+            context = {
+                "email": user.email,
+                "domain": self.request.get_host(),
+                "site_name": "Perfume-store",
+                "uid": uid,
+                "user": user,
+                "token": token,
+                "protocol": "https" if self.request.is_secure() else "http",
+            }
+
+            subject = "Восстановление пароля"
+
+            message = render_to_string("registration/password_reset_email.html", context)
+
+            send_email_reset_password.delay(
+                subject,
+                message,
+                setting.DEFAULT_FROM_EMAIL,
+                [user.email]
+            )
+
+        return super().form_valid(form)
